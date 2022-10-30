@@ -1,8 +1,8 @@
 package engine;
 
-import Scenes.FirstVillageScene;
-import Scenes.Scene;
-import Scenes.TestScene;
+import scenes.FirstVillageScene;
+import scenes.Scene;
+import scenes.TestScene;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -42,11 +42,11 @@ public class Window {
         switch (newScene) {
             case 0:
                 currentScene = new TestScene();
-                //currentScene.init();
+                currentScene.init();
                 break;
             case 1:
                 currentScene = new FirstVillageScene();
-                //currentScene.init();
+                currentScene.init();
                 break;
             default:
                 assert false: "Unknown Scene '" + newScene + "'";
@@ -63,7 +63,7 @@ public class Window {
     }
 
     public void run() {
-        System.out.println("Window Engine started. " + Version.getVersion());
+        System.out.println("Window-Engine started. LWJGL version is currently on " + Version.getVersion());
 
         init();
         loop();

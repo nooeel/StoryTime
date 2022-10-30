@@ -1,8 +1,12 @@
-package Scenes;
+package scenes;
 
 public abstract class Scene {
 
     public Scene() {
+
+    }
+
+    public void init() {
 
     }
 
