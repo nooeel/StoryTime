@@ -1,5 +1,7 @@
 package scenes;
 
+import engine.Camera;
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
 
@@ -16,10 +18,10 @@ public class TestScene extends Scene {
 
     private float[] vertexArray = {
             // pos                  //color
-             0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, 1.0f,     // bottom right 0
-            -0.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f, 1.0f,     // Top Left     1
-             0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f, 1.0f,     // Top Right    2
-            -0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 0.0f, 1.0f,     // bottom left  3
+             100.0f, 0.0f, 0.0f,     1.0f, 0.0f, 0.0f, 1.0f,     // bottom right 0
+            0.0f,  100.0f, 0.0f,     0.0f, 1.0f, 0.0f, 1.0f,     // Top Left     1
+            100.0f,  100.0f, 0.0f,     0.0f, 0.0f, 1.0f, 1.0f,     // Top Right    2
+            0.0f, 0.0f, 0.0f,     1.0f, 1.0f, 0.0f, 1.0f,     // bottom left  3
     };
 
     // WICHTIG: Immer gegen den Uhrzeigersinn
@@ -40,6 +42,8 @@ public class TestScene extends Scene {
 
     @Override
     public void init() {
+        this.camera = new Camera(new Vector2f());
+
         System.out.println("In TestScene - 0");
 
 
@@ -87,7 +91,11 @@ public class TestScene extends Scene {
     @Override
     public void update(float dt) {
 
+        camera.position.x -= dt * 50.0f;
+
         defaultShader.use();
+        defaultShader.uploadMat4f("uProjection", camera.getProjectionMatrix());
+        defaultShader.uploadMat4f("uView", camera.getViewMatrix());
 
 
         // Bind the VAO that were using
